@@ -1,0 +1,31 @@
+.balance-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 1rem;
+	min-width: 400px;
+	flex-direction: column;
+	padding: 1rem;
+	border-radius: 1rem;
+	background-color: #252525;
+}
+
+.credit-balance {
+	font-weight: 700;
+	font-size: 1rem;
+	opacity: 0.5;
+}
+
+.balance-amount {
+	font-size: 2rem;
+	margin-top: -1rem;
+}
+
+.add-button-container {
+	display: flex;
+	gap: 0.5rem;
+	width: 100%;
+}
+
+.add-button {
+	flex-grow: 1;
+}
