@@ -23,9 +23,48 @@
 .add-button-container {
 	display: flex;
 	gap: 0.5rem;
+	justify-content: left;
 	width: 100%;
 }
 
 .add-button {
 	flex-grow: 1;
+	margin-left: 0.5rem;
+}
+
+.number-input {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	outline: none;
+	border: none;
+	text-align: center;
+	font-weight: 900;
+}
+
+.up-down-arrows {
+	display: flex;
+	gap: 0.25rem;
+	flex-direction: column;
+}
+
+.disabled {
+	opacity: 0.5;
+	cursor: default;
+
+	&:hover {
+		border-color: transparent;
+	}
+}
+
+/* Hiding up and down arrows from number inputs */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+	-moz-appearance: textfield;
+	appearance: textfield;
 }
