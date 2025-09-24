@@ -4,22 +4,28 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 
 function Balance() {
-	async function getBalance() {
+	async function fetchBalanceFromAPI() {
 		const res = await fetch('http://127.0.0.1:3000')
 		const data = await res.json()
+		console.log(data)
 
 		return data.balance
 	}
 
-	const [balance, setBalance] = useState()
-	async function fetchBalance() {
-		const result = await getBalance()
-		setBalance(result)
+	async function getBalance() {
+		const balance = await fetchBalanceFromAPI()
+		return balance
 	}
+
 	useEffect(() => {
-		fetchBalance()
+		async function helperGetBalance() {
+			const balance = await fetchBalanceFromAPI()
+			return balance
+		}
+		helperGetBalance().then((value) => setBalance(value))
 	}, [])
 
+	const [balance, setBalance] = useState()
 	const [hoursValue, setHoursValue] = useState(0)
 	const [classesValue, setClassesValue] = useState(0)
 	const [pagesValue, setPagesValue] = useState(0)
@@ -30,15 +36,16 @@ function Balance() {
 			type,
 		}
 
-		const response = await fetch('http://127.0.0.1:3000/', {
+		const res = await fetch('http://127.0.0.1:3000/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(data),
 		})
-		console.log(response)
-		fetchBalance()
+		const body = await res.json()
+		console.log(body)
+		setBalance(body.balance)
 	}
 
 	return (
@@ -75,8 +82,8 @@ function Balance() {
 				<button
 					className='add-button add-classes'
 					onClick={() => {
-						setHoursValue(0)
 						addCredits(hoursValue, 'hours')
+						setHoursValue(0)
 					}}
 				>
 					Add Hours ⏳
@@ -113,8 +120,8 @@ function Balance() {
 				<button
 					className='add-button add-classes'
 					onClick={() => {
-						setClassesValue(0)
 						addCredits(classesValue, 'classes')
+						setClassesValue(0)
 					}}
 				>
 					Add Classes 📝
@@ -148,8 +155,8 @@ function Balance() {
 				<button
 					className='add-button add-classes'
 					onClick={() => {
-						setPagesValue(0)
 						addCredits(pagesValue, 'pages')
+						setPagesValue(0)
 					}}
 				>
 					Add Pages 📖
